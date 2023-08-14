@@ -1,0 +1,31 @@
+#!armcc -E
+#define DRAM_START 0x0FFF0000
+#define DRAM_SIZE  0x00010000
+
+FW_LOAD_REGION 0x00000000 0x00010000
+{
+  CODE_RO_REGION_STARTUP +0
+  {
+    *(RESET, +First)
+  }
+  CODE_RO_REGION_HEADER +0 FIXED
+  {
+    *(IMAGE_HEADER, +First)
+  }
+  CODE_RO_REGION_RO +0
+  {
+    *(InRoot$$Sections)
+    .ANY (+RO)
+  }
+
+  DATA_RW_REGION DRAM_START DRAM_SIZE-8
+  {
+    .ANY (+RW +ZI)
+  }
+  
+  DATA_RW_REGION_misc AlignExpr(+0,8)
+  {
+    .ANY (misc_data)
+  }   
+}
+

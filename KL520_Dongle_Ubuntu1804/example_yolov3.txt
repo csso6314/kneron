@@ -1,0 +1,227 @@
+#Hello!
+#Converting and compiling a model is a little complicate,
+#here we provide a step by step example to compile a tiny-yolo-v3 from a keras-based opensource project (https://github.com/qqwweee/keras-yolo3.git).
+
+#Step 1: Run docker and mount a folder into docker as "/data1"
+docker run --rm -it -v /C/Users/eric.wu/Desktop/docker_mount:/data1 kneron/toolchain:520
+
+#Step 2: clone yolo project from github
+mkdir data1
+cd /data1
+git clone https://github.com/qqwweee/keras-yolo3.git
+
+#Step 3: download model weights of tiny-yolo-v3
+cd keras-yolo3
+wget https://pjreddie.com/media/files/yolov3-tiny.weights
+
+#Step 4: save weight and model architecture into one h5 file (2021/03/29 Update)
+#this project provide us a script to convert the weights file
+python convert.py yolov3-tiny.cfg yolov3-tiny.weights yolov3-tiny-weights.h5
+
+#Step 5: modified input shape information for h5 model (2021/03/29 Update)
+#The downloaded h5 weights file is not acceptable for ONNX_Converter and toolchain,we need to do a simple modification to the h5 file. (2021/03/29 Update)
+#In order to achieve this mission, we leverage the code already in the project, train.py, and do simple modified:
+
+#1.remove training code
+#2.remove redundant layer
+#3.set the model input size
+#4.modified the loaded anchor and classes information file (2021/03/29 Update)
+#5.save loaded mode
+
+#the modified example shows in export_tiny.py, you can download from the link bellow,
+
+-------------------export_tiny.py----------------------------------------------------------
+
+import numpy as np
+import keras.backend as K
+from keras.layers import Input, Lambda
+from keras.models import Model
+from keras.optimizers import Adam
+from keras.callbacks import TensorBoard, ModelCheckpoint, ReduceLROnPlateau, EarlyStopping
+
+from yolo3.model import preprocess_true_boxes, tiny_yolo_body, yolo_loss
+from yolo3.utils import get_random_data
+
+
+def _main():
+    annotation_path = 'train.txt'
+    log_dir = 'logs/000/'
+    classes_path = 'model_data/coco_classes.txt'
+    anchors_path = 'model_data/tiny_yolo_anchors.txt'
+    class_names = get_classes(classes_path)
+    num_classes = len(class_names)
+    anchors = get_anchors(anchors_path)
+
+    input_shape = (416,416) # multiple of 32, hw
+
+    model = create_tiny_model(input_shape, anchors, num_classes,
+        freeze_body=2, weights_path='./yolov3-tiny-weights.h5')
+
+    model.save('./tiny_yolov3_wo_lambda.h5')
+
+
+def get_classes(classes_path):
+    '''loads the classes'''
+    with open(classes_path) as f:
+        class_names = f.readlines()
+    class_names = [c.strip() for c in class_names]
+    return class_names
+
+def get_anchors(anchors_path):
+    '''loads the anchors from a file'''
+    with open(anchors_path) as f:
+        anchors = f.readline()
+    anchors = [float(x) for x in anchors.split(',')]
+    return np.array(anchors).reshape(-1, 2)
+
+
+def create_tiny_model(input_shape, anchors, num_classes, load_pretrained=True, freeze_body=2,
+            weights_path='/put/weight/file/path/here'):
+    '''create the training model, for Tiny YOLOv3'''
+    K.clear_session() # get a new session
+    h, w = input_shape
+    image_input = Input(shape=(h, w, 3))
+    num_anchors = len(anchors)
+
+    y_true = [Input(shape=(h//{0:32, 1:16}[l], w//{0:32, 1:16}[l], \
+        num_anchors//2, num_classes+5)) for l in range(2)]
+
+    model_body = tiny_yolo_body(image_input, num_anchors//2, num_classes)
+    print('Create Tiny YOLOv3 model with {} anchors and {} classes.'.format(num_anchors, num_classes))
+
+    if load_pretrained:
+        model_body.load_weights(weights_path, by_name=True, skip_mismatch=True)
+        print('Load weights {}.'.format(weights_path))
+        if freeze_body in [1, 2]:
+            # Freeze the darknet body or freeze all but 2 output layers.
+            num = (20, len(model_body.layers)-2)[freeze_body-1]
+            for i in range(num): model_body.layers[i].trainable = False
+            print('Freeze the first {} layers of total {} layers.'.format(num, len(model_body.layers)))
+
+    model = Model([model_body.input, *y_true], model_body.output)
+
+    return model
+
+
+if __name__ == '__main__':
+    _main()
+
+-------------------export_tiny.py----------------------------------------------------------
+
+#put the export_tiny.py into root folder of keras-yolo3, then do
+python export_tiny.py
+#then, tiny_yolov3_wo_lambda.h5 should be generated
+
+#Step 6: convert h5 file to onnx
+#Now, we can convert the h5 model directly by ONNX_Converter.
+python /workspace/libs/ONNX_Convertor/keras-onnx/generate_onnx.py ./tiny_yolov3_wo_lambda.h5 -o ./tiny_yolov3_wo_lambda.onnx
+#tiny_yolov3_wo_lambda.onnx should be generated in the same folder.
+
+#Step 7: onnx optimization
+#Kneron-toolchain need specific onnx format, and there might be some operator could be optimized for kl520 and toolchain. ONNX_Converter provide script to help us doing that.
+python /workspace/libs/ONNX_Convertor/optimizer_scripts/onnx2onnx.py ./tiny_yolov3_wo_lambda.onnx --add-bn
+#(*note) --add-bn flag could make toolchain work better while doing quantization.
+#the optimized onnx model will be saved as tiny_yolov3_wo_lambda_polished.onnx
+
+#Step 8: quantization and compiling
+#follow the document in Chapter 3:
+#Kneron toolchain need input_param.json and batch_input_params.json
+#(*note) have to check the data pre-process method in the project, here is what I found:
+#from some project have data pre-process method
+#example : keras-yolo3/blob/master.py
+
+-------------------master.py----------------------------------------------------------
+
+def detect_image(self, image):
+    start = timer()
+    
+    if self.model_image_size != (None, None):
+        assert self.model_image_size[0]%32 == 0, 'Multiples of 32 required'
+        assert self.model_image_size[1]%32 == 0, 'Multiples of 32 required'
+        boxed_image = letterbox_image(image, tuple(reversed(self.model_image_size))
+    else:
+        new_image_size = (image.width - (image.width % 32),
+                          image.height - (image.height % 32))
+        boxed_image = letterbox_image(image, new_image_size)
+    image_data = np.array(boxed_image, dtype='float32')
+    
+    print(image_data.shape)
+####image_data /= 255
+    image_data = np.expand_dims(image_data, 0)
+    
+    out_boxes, out_scores, out_classes = self.sess.run(
+        [self.boxes, self.scores, self.classes],
+        feed_dict={
+            self.yolo_model.input: image_data,
+            self.input_image_shape: [image.size[1], image.size[0]],
+            K.learning_phase(): 0
+        })
+
+-------------------master.py----------------------------------------------------------
+
+#in input_param.json, we need to choose proper pre-process method. Or might got bad quantization result.
+
+#Here is my input_params.json:
+
+-------------------input_params.json----------------------------------------------------------
+
+{
+  "model_info": {
+    "input_onnx_file": "/data1/keras-yolo3/tiny_yolov3_wo_lambda_polished.onnx",
+    "model_inputs": [{
+      "model_input_name": "input_1_o0",
+      "input_image_folder": "/data1/images"
+    }]
+  },
+  "preprocess": {
+    "img_preprocess_method": "yolo",
+    "img_channel": "RGB",
+    "radix": 7
+  }
+}
+
+-------------------input_params.json----------------------------------------------------------
+
+#and my batch_input_params.json:
+
+------------------batch_input_params.json----------------------------------------------------------
+
+{
+  "models": [
+    {
+      "id": 1000,
+      "version": "1",
+        "path": "/data1/keras-yolo3/tiny_yolov3_wo_lambda_polished.onnx",
+      "input_params": "/data1/input_params.json"
+    }
+  ]
+}
+
+-------------------batch_input_params.json----------------------------------------------------------
+
+#then do quantization and compiling,
+
+python /workspace/scripts/fpAnalyserBatchCompile_520.py -c /data1/batch_input_params.json
+
+#script will generate a folder "batch_compile", the models_520.nef in the folde is the final compiled model
+
+#forward from https://www.kneron.com/forum/discussion/53/example-keras-kl520-how-to-convert-and-compile-tiny-yolo-v3-from-github-project
+
+
+#before compile
+#data1
+#│   ├── images
+#│   ├── keras-yolo3
+#│   ├── batch_input_params.json
+#│   ├── input_params.json
+
+#after compile
+#data1
+#│   ├── batch_compile
+#│   ├── fpAnalyser
+#│   ├── images
+#│   ├── keras-yolo3
+#│   ├── batch_input_params.json
+#│   ├── input_params.json
+
+

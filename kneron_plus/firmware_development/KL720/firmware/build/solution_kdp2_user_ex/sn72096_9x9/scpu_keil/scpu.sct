@@ -1,0 +1,40 @@
+#!armcc -E -I ..\ -I ..\..\..\..\platform\kl720\common -I ..\..\..\..\platform\board
+
+#include "project.h"
+
+SCPU SiRAM_MEM_BASE SiRAM_MEM_SIZE-4
+{
+    SCPU_STARTUP + 0
+    {
+        *(VECTOR_TABLE, +First)
+    }
+
+    SCPU_HEADER + 0 FIXED               ;should always start from offset xxxx
+    {
+        *(IMAGE_HEADER, +First)
+    }
+
+    SCPU_RO + 0
+    {
+        *(InRoot$$Sections)
+        *(+RO)
+    }
+
+    SCPU_RW SdRAM_MEM_BASE SdRAM_MEM_SIZE
+    {
+        *(+RW)
+    }
+
+    SCPU_ZI + 0
+    {
+        *(+ZI)
+    }
+    
+    SCPU_DDR DDR_SCATTER_SPACE_BASE DDR_SCATTER_SPACE_SIZE
+    {
+        *(USER_RO)
+        *(USER_RW)
+        *(USER_ZI)
+    }
+}
+

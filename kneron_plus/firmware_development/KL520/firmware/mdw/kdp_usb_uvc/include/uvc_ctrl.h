@@ -1,0 +1,232 @@
+#ifndef UVC_CTRL_H
+#define UVC_CTRL_H
+#include "uvc_dev.h"
+
+/* Control flags */
+#define UVC_CTRL_FLAG_SET_CUR		(1 << 0)
+#define UVC_CTRL_FLAG_GET_CUR		(1 << 1)
+#define UVC_CTRL_FLAG_GET_MIN		(1 << 2)
+#define UVC_CTRL_FLAG_GET_MAX		(1 << 3)
+#define UVC_CTRL_FLAG_GET_RES		(1 << 4)
+#define UVC_CTRL_FLAG_GET_INFO	    (1 << 5)
+#define UVC_CTRL_FLAG_GET_DEF		(1 << 6)
+#define UVC_CTRL_FLAG_GET_LEN		(1 << 7)
+/* Control should be saved at suspend and restored at resume. */
+#define UVC_CTRL_FLAG_RESTORE		(1 << 9)
+/* Control can be updated by the camera. */
+#define UVC_CTRL_FLAG_AUTO_UPDATE	(1 << 10)
+
+#define UVC_CTRL_FLAG_GET_RANGE \
+    (UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_MIN | \
+     UVC_CTRL_FLAG_GET_MAX | UVC_CTRL_FLAG_GET_RES | \
+     UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_GET_INFO)
+#define VC_CTRL_NUM 2
+#define DEVICE_POWER_MODE_FLAG  UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_INFO
+#define REQUEST_ERROR_CODE_FLAG UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_INFO
+
+
+#define CT_CTRL_NUM 22
+#define SCANNING_MODE_CTL_FLAG           UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_INFO
+#define AUTO_EXPOSURE_MODE_CTL_FLAG      UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_RES | UVC_CTRL_FLAG_GET_INFO | UVC_CTRL_FLAG_GET_DEF
+#define AUTO_EXPOSURE_PRIORITY_CTL_FLAG  UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_INFO
+#define EXPOSURE_TIME_ABSOLUTE_CTL_FLAG  UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE
+#define EXPOSURE_TIME_RELATIVE_CTL_FLAG  UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_INFO
+#define FOCUS_ABSOLUTE_CTL_FLAG          UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE
+#define FOCUS_RELATIVE_CTL_FLAG          UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE
+#define IRIS_ABSOLUTE_CTL_FLAG           UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE
+#define IRIS_RELATIVE_CTL_FLAG           UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_INFO
+#define ZOOM_ABSOLUTE_CTL_FLAG           UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE
+#define ZOOM_RELATIVE_CTL_FLAG           UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE
+#define PANTILT_ABSOLUTE_CTL_FLAG        UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE
+#define PANTILT_RELATIVE_CTL_FLAG        UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE
+#define ROLL_ABSOLUTE_CTL_FLAG           UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE
+#define ROLL_RELATIVE_CTL_FLAG           UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE
+#define FOCUS_AUTO_CTL_FLAG              UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_INFO | UVC_CTRL_FLAG_GET_DEF
+#define PRIVACY_CTL_FLAG                 UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_INFO
+#define FOCUS_SIMPLE_CTL_FLAG            UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_INFO | UVC_CTRL_FLAG_GET_DEF
+#define WINDOW_CTL_FLAG                  UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX | UVC_CTRL_FLAG_GET_DEF
+#define REGION_OF_INTEREST_CTL_FLAG      UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX | UVC_CTRL_FLAG_GET_DEF
+
+#define PU_CTRL_NUM 19
+#define BRIGHTNESS_CTL_FLAG              UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE
+#define CONTRAST_CTL_FLAG                UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE
+#define HUE_CTL_FLAG                     UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE
+#define SATURATION_CTL_FLAG              UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE
+#define SHARPNESS_CTL_FLAG               UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE
+#define GAMMA_CTL_FLAG                   UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE
+#define WHITE_BALANCE_TEMPERATURE_CTL_FLAG  UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE
+#define WHITE_BALANCE_COMPONENT_CTL_FLAG    UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE
+#define BACKLIGHT_COMPENSATION_CTL_FLAG  UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE
+#define GAIN_CTL_FLAG                    UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE
+#define POWER_LINE_FREQUENCY_CTL_FLAG    UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_INFO | UVC_CTRL_FLAG_GET_DEF
+#define HUE_AUTO_CTL_FLAG                UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_INFO | UVC_CTRL_FLAG_GET_DEF
+#define WHITE_BALANCE_TEMPERATURE_AUTO_CTL_FLAG UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_INFO | UVC_CTRL_FLAG_GET_DEF
+#define WHITE_BALANCE_COMPONENT_AUTO_CTL_FLAG   UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_INFO | UVC_CTRL_FLAG_GET_DEF
+#define DIGITAL_MULTIPLIER_CTL_FLAG             UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE
+#define DIGITAL_MULTIPLIER_LIMIT_CTL_FLAG       UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE
+#define ANALOG_VIDEO_STANDARD_CTL_FLAG          UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_INFO
+#define ANALOG_VIDEO_LOCK_STATUS_CTL_FLAG       UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_INFO
+#define CONTRAST_AUTO_CTL_FLAG                  UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_INFO | UVC_CTRL_FLAG_GET_DEF
+
+#define EU_CTRL_NUM 20
+
+#define SELECT_LAYER_CTL_FLAG            UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_MAX | UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_GET_INFO | UVC_CTRL_FLAG_GET_LEN
+#define PROFILE_AND_TOOLSET_CTL_FLAG     UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_GET_INFO | UVC_CTRL_FLAG_GET_LEN
+#define VIDEO_RESOLUTION_CTL_FLAG        UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_MAX | UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_GET_INFO | UVC_CTRL_FLAG_GET_LEN
+#define MINIMUM_FRAME_INTERVAL_CTL_FLAG  UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_MAX | UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_GET_INFO | UVC_CTRL_FLAG_GET_LEN
+#define SLICE_MODE_CTL_FLAG              UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_MAX | UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_GET_INFO | UVC_CTRL_FLAG_GET_LEN
+#define RATE_CONTROL_MODE_CTL_FLAG       UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_GET_INFO | UVC_CTRL_FLAG_GET_LEN
+#define AVERAGE_BIT_RATE_CTL_FLAG        UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_MAX | UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_GET_INFO | UVC_CTRL_FLAG_GET_LEN
+#define CPB_SIZE_CTL_FLAG                UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_MAX | UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_GET_INFO | UVC_CTRL_FLAG_GET_LEN
+#define PEAK_BIT_RATE_CTL_FLAG           UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_MAX | UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_GET_INFO | UVC_CTRL_FLAG_GET_LEN
+#define QUANTIZATION_PARAMETER_CTL_FLAG  UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_MAX | UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_GET_INFO | UVC_CTRL_FLAG_GET_LEN | UVC_CTRL_FLAG_GET_RES
+#define SYNCHRONIZATION_AND_LONGTERM_REFERENCE_FRAME_CTL_FLAG UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_MIN |  UVC_CTRL_FLAG_GET_MAX | UVC_CTRL_FLAG_GET_INFO | UVC_CTRL_FLAG_GET_LEN
+#define LONG_TERM_BUFFER_CTL_FLAG        UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_DEF |  UVC_CTRL_FLAG_GET_MAX | UVC_CTRL_FLAG_GET_INFO | UVC_CTRL_FLAG_GET_LEN
+#define PICTURE_LONG_TERM_REFERENCE_CTL_FLAG UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_GET_INFO | UVC_CTRL_FLAG_GET_LEN
+#define LTR_VALIDATION_CTL_FLAG UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_GET_INFO | UVC_CTRL_FLAG_GET_LEN
+#define LEVEL_IDC_CTL_FLAG    UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_MAX | UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_DEF
+#define SEI_MESSAGE_CTL_FLAG  UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_DEF |  UVC_CTRL_FLAG_GET_MAX | UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_INFO
+#define QP_RANGE_CTL_FLAG  UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_MAX | UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_GET_INFO | UVC_CTRL_FLAG_GET_LEN | UVC_CTRL_FLAG_GET_RES
+#define PRIORITY_ID_CTL_FLAG  UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_INFO | UVC_CTRL_FLAG_GET_LEN
+#define START_OR_STOP_LAYER_VIEW_CTL_FLAG UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_INFO | UVC_CTRL_FLAG_GET_LEN
+#define ERROR_RESILIENCY_CTL_FLAG UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_GET_RES
+
+struct uvc_xu_control_query {
+    uint8_t unit;
+    uint8_t selector;
+    uint8_t query;		/* Video Class-Specific Request Code, */
+    /* defined in linux/usb/video.h A.8.  */
+    uint16_t size;
+
+    uint8_t  *data;
+};
+
+int uvc_ctrl_init_device(struct uvc_device *dev);
+
+#define HOST_SET_CLASS_INTF 0x21
+#define HOST_GET_CLASS_INTF 0xA1
+
+
+struct uvc_usb_ctrlreq {
+    uint8_t bRequestType;
+    uint8_t bRequest;
+    uint16_t wValue;
+    uint16_t wIndex;
+    uint16_t wLength;
+    uint8_t *data;
+} __attribute__ ((packed));
+
+
+
+// uvc_eu_ctrlreq_data
+struct eu_select_layer {
+    uint16_t wLayerOrViewID;
+};
+struct eu_profile {
+    uint16_t wProfile;
+    uint16_t wConstrainedToolset;
+    uint8_t bmSettings;
+};
+
+struct eu_videoresolution {
+    uint16_t  wWidth;
+    uint16_t  wHeight;
+};
+struct eu_min_frame_interval {
+    uint32_t dwFrameInterval;
+};
+struct eu_slicemode {
+    uint16_t wSliceMode;
+    uint16_t wSliceConfigSetting;
+};
+struct eu_ratecontrolmode {
+    uint8_t bRateControlMode;
+    uint32_t dwAverageBitRate;
+    uint32_t dwCPBsize;
+    uint32_t dwPeakBitRate;
+};
+struct eu_qpprime {
+    uint16_t wQpPrime_I;
+    uint16_t wQpPrime_P;
+    uint16_t wQpPrime_B;
+};
+
+struct eu_syncframe {
+    uint8_t bSyncFrameType;
+    uint16_t wSyncFrameInterval;
+    uint8_t	bGradualDecoderRefresh;
+};
+
+struct eu_ltrbuffers {
+    uint8_t bNumHostControlLTRBuffers;
+    uint8_t	bTrustMode;
+};
+
+struct eu_ltrpicture {
+    uint8_t bPutAtPositionInLTRBuffer;
+    uint8_t bLTRMode;
+};
+
+struct eu_ltrvalidation {
+    uint16_t bmValidLTRs;
+};
+
+struct eu_levelidc {
+    uint8_t bLevelIDC;
+};
+
+struct eu_seimessages {
+    uint8_t bmSEIMessages[8];
+};
+
+struct eu_range {
+    uint8_t bMinQp;
+    uint8_t	bMaxQp;
+};
+
+struct eu_priority {
+    uint8_t	bPriority;
+};
+
+struct start_stop_layer {
+    uint8_t	bUpdate;
+};
+
+struct ErrorResiliencyFeatures {
+    uint16_t bmErrorResiliencyFeatures;
+};
+
+
+struct vs_synch_delay {
+    uint16_t wDelay;
+};
+
+struct vs_streamerrorcode {
+    uint8_t bStreamErrorCode;
+};
+
+struct vs_generatekeyframe {
+    uint8_t bGenerateKeyFrame;
+};
+
+struct vs_updateframe {
+    uint8_t bStartFrameSegment;
+    uint8_t bEndFrameSegment;
+};
+
+struct vs_still_image_trigger {
+    uint8_t bTrigger;
+};
+
+int uvc_init_stream_ctl(struct uvc_device *udev, struct uvc_streaming *stream);
+int uvc_vs_probe(struct uvc_streaming *stream, struct uvc_streaming_control_data *probe);
+//int uvc_find_control(struct uvc_device *udev, uint32_t cid);
+
+int uvc_ctrl_get(struct ctrl_info *ctrl, struct uvc_device *dev, uint8_t req_num);
+int uvc_ctrl_set(struct uvc_device *udev, struct ctrl_info *info);
+//void set_ct_ctrl_flag(struct ctrl_info *info);
+//void set_pu_ctrl_flag(struct ctrl_info *info);
+
+int uvc_send_ctl(struct uvc_device *udev, uint32_t cid, uint16_t req, uint8_t *para, uint8_t len);
+int uvc_init_device_ctrl(struct uvc_device *udev);
+#endif // UVC_CTRL_H

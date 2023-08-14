@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<BuildTarget tool="xtensa" version="1.0">
+    <BuildSettings>
+        <BaseSettings path="project">
+            <PreprocessorOptions>
+                <StringListMapOptions>
+                    <StringListMapEntry>
+                        <key>Includes</key>
+                        <value flag="-I" inheritance="prepend">
+                            <ListEntry>${workspace_loc}/../../../platform/kl720/common</ListEntry>
+                            <ListEntry>${workspace_loc}/../../../platform/kl720/ncpu/libs/libXtensa/inc</ListEntry>
+                            <ListEntry>${workspace_loc}/../../../platform/kl720/ncpu/libs/libFreeRTOS/inc</ListEntry>
+                            <ListEntry>${workspace_loc}/../../../platform/kl720/ncpu/libs/libxi/inc</ListEntry>
+                            <ListEntry>${workspace_loc}/../../../platform/kl720/ncpu/libs/libDriver/inc</ListEntry>
+                        </value>
+                    </StringListMapEntry>
+                </StringListMapOptions>
+                <KeyValueListMapOptions>
+                    <KeyValueListMapEntry>
+                        <key>Defines</key>
+                        <value flag="-D" inheritance="append">
+                            <ListEntry key="TARGET_NCPU" value="1"/>
+                            <ListEntry key="LOG_ENABLE" value="1"/>
+                            <ListEntry key="LOG_USE_PRINTF" value="0"/>
+                            <ListEntry key="SIM_INTERRUPT_GEN" value="0"/>
+                            <ListEntry key="BOOT_FROM_IRAM" value="1"/>
+                            <ListEntry key="DSP_STANDALONE_BRINGUP" value="0"/>
+                            <ListEntry key="GEN_INTERRUPT_ON_ISS" value="0"/>
+                            <ListEntry key="GEN_INTERRUPT_ON_HW" value="1"/>
+                            <ListEntry key="DSP_NPU_PERF_PROFILE" value="1"/>
+                            <ListEntry key="YOLO_FIX_POINT_DUMP" value="0"/>
+                            <ListEntry key="TEST_PARALLEL" value="1"/>
+                            <ListEntry key="KL720" value="1"/>
+                            <ListEntry key="FIXED" value="1"/>
+                            <ListEntry key="FIXED_DSP" value="1"/>
+                            <ListEntry key="PRINT_INPROC_REG" value="0"/>
+                            <ListEntry key="INPROC_POLL_ENABLE" value="1"/>
+                            <ListEntry key="PRINT_NPU_REG" value="0"/>
+                            <ListEntry key="PRINT_PARSER_NODE_VALUE" value="0"/>
+                            <ListEntry key="STACK_HEAP_MEASURE" value="0"/>
+                            <ListEntry key="KL720_IPC" value="1"/>
+                            <ListEntry key="_BOARD_SN720HAPS_H_" value="0"/>
+                            <ListEntry key="_VECC_" value="1"/>
+                            <ListEntry key="ENABLE_JPEGLIB" value="0"/>
+                        </value>
+                    </KeyValueListMapEntry>
+                </KeyValueListMapOptions>
+            </PreprocessorOptions>
+            <CompilerOptions>
+                <SingleFlagMapOptions>
+                    <SingleFlagMapEntry>
+                        <key>WarningSetting</key>
+                        <value flag="-Wall" use="true"/>
+                    </SingleFlagMapEntry>
+                    <SingleFlagMapEntry>
+                        <key>CompilerEnableLongCall</key>
+                        <value flag="-mlongcalls" use="true"/>
+                    </SingleFlagMapEntry>
+                    <SingleFlagMapEntry>
+                        <key>WarningAsError</key>
+                        <value flag="-Werror" use="true"/>
+                    </SingleFlagMapEntry>
+                    <SingleFlagMapEntry>
+                        <key>CompilerVariant</key>
+                        <value flag="xt-xcc" use="true"/>
+                    </SingleFlagMapEntry>
+                    <SingleFlagMapEntry>
+                        <key>ISOStandard</key>
+                        <value flag="-std=c11" use="true"/>
+                    </SingleFlagMapEntry>
+                    <SingleFlagMapEntry>
+                        <key>FunctionSections</key>
+                        <value flag="-ffunction-sections" use="true"/>
+                    </SingleFlagMapEntry>
+                </SingleFlagMapOptions>
+                <FlagValueMapOptions>
+                    <FlagValueMapEntry>
+                        <key>Optimization</key>
+                        <value level="3" flag="-O" use="true"/>
+                    </FlagValueMapEntry>
+                </FlagValueMapOptions>
+            </CompilerOptions>
+            <AssemblerOptions>
+                <SingleFlagMapOptions>
+                    <SingleFlagMapEntry>
+                        <key>AssemblerLongCall</key>
+                        <value flag="--longcalls" use="true"/>
+                    </SingleFlagMapEntry>
+                    <SingleFlagMapEntry>
+                        <key>AssemblerIncludeDebug</key>
+                        <value flag="--gdwarf-2" use="true"/>
+                    </SingleFlagMapEntry>
+                </SingleFlagMapOptions>
+            </AssemblerOptions>
+            <LinkerOptions>
+                <BooleanMapOptions>
+                    <BooleanMapEntry>
+                        <key>CreateMinsize</key>
+                        <value selected="true"/>
+                    </BooleanMapEntry>
+                </BooleanMapOptions>
+                <StringListMapOptions>
+                    <StringListMapEntry>
+                        <key>LibrarySearchPath</key>
+                        <value flag="-L" inheritance="prepend">
+                            <ListEntry>${workspace_loc}/../../../platform/kl720/ncpu/libs</ListEntry>
+                        </value>
+                    </StringListMapEntry>
+                    <StringListMapEntry>
+                        <key>Libraries</key>
+                        <value flag="-l" inheritance="prepend">
+                            <ListEntry>ToF</ListEntry>
+                            <ListEntry>Driver</ListEntry>
+                            <ListEntry>jpeg</ListEntry>
+                            <ListEntry>xi</ListEntry>
+                            <ListEntry>xi_ref</ListEntry>
+                            <ListEntry>FreeRTOS</ListEntry>
+                            <ListEntry>Sys</ListEntry>
+                            <ListEntry>Xtensa</ListEntry>
+                        </value>
+                    </StringListMapEntry>
+                </StringListMapOptions>
+                <LinkerSupport custom="true" key="-mlsp=" value="${workspace_loc}/../../../platform/kl720/ncpu/ncpu_main/link_map"/>
+            </LinkerOptions>
+        </BaseSettings>
+    </BuildSettings>
+</BuildTarget>

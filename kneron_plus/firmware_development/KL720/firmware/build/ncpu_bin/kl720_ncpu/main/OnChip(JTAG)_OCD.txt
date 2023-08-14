@@ -1,0 +1,390 @@
+XOCD 14.02 2019-08-27 15:02:11
+(c) 1999-2020 Cadence Design Systems Inc. All rights reserved.
+[Debug Log 2020-05-21 18:49:25]
+Loading module "gdbstub" v2.0.0.12
+Loading module "jlink" v2.0.2.0
+Using JLINK lib v.65002
+Jlink USB Serial Number: 50127472
+Connected to Jlink Device:
+  Name:'SEGGER J-Link ARM'
+  S/N:50127472
+  Firmware: J-Link V10 compiled Oct 22 2019 16:28:15
+  Requested/Set TCK: 2000kHz/65534kHz
+Loading module "jtag" v2.0.0.20
+Loading module "xtensa" v2.0.0.48
+Loading module "traxapp" v2.0.0.8
+Loading module "trax" v2.0.1.23
+Starting thread 'GDBStub0'
+Starting thread 'TraxApp'
+Opened GDB socket at port 20000
+traxapp: listening on port 11444
+Initialize XDM driver
+ Total IR bits : 5
+  TAP[0] irwidth = 5
+ Total DR bypass bits : 1
+Warning: Target not under control. No status update performed
+[Software breakpoints not supported in XOCD. GDB will handle breakpoints]
+XOCD 14.02 2019-08-27 15:02:11
+(c) 1999-2020 Cadence Design Systems Inc. All rights reserved.
+[Debug Log 2020-05-21 19:19:09]
+Loading module "gdbstub" v2.0.0.12
+Loading module "jlink" v2.0.2.0
+Using JLINK lib v.65002
+Jlink USB Serial Number: 50127472
+Connected to Jlink Device:
+  Name:'SEGGER J-Link ARM'
+  S/N:50127472
+  Firmware: J-Link V10 compiled Oct 22 2019 16:28:15
+  Requested/Set TCK: 2000kHz/65534kHz
+Loading module "jtag" v2.0.0.20
+Loading module "xtensa" v2.0.0.48
+Loading module "traxapp" v2.0.0.8
+Loading module "trax" v2.0.1.23
+Starting thread 'GDBStub0'
+Starting thread 'TraxApp'
+Opened GDB socket at port 20000
+Initialize XDM driver
+traxapp: listening on port 11444
+ Total IR bits : 5
+  TAP[0] irwidth = 5
+ Total DR bypass bits : 1
+Warning: Target not under control. No status update performed
+[Software breakpoints not supported in XOCD. GDB will handle breakpoints]
+XOCD 14.02 2019-08-27 15:02:11
+(c) 1999-2020 Cadence Design Systems Inc. All rights reserved.
+[Debug Log 2020-05-21 19:21:56]
+Loading module "gdbstub" v2.0.0.12
+Loading module "jlink" v2.0.2.0
+Using JLINK lib v.65002
+Jlink USB Serial Number: 50127472
+Connected to Jlink Device:
+  Name:'SEGGER J-Link ARM'
+  S/N:50127472
+  Firmware: J-Link V10 compiled Oct 22 2019 16:28:15
+  Requested/Set TCK: 2000kHz/65534kHz
+Loading module "jtag" v2.0.0.20
+Loading module "xtensa" v2.0.0.48
+Loading module "traxapp" v2.0.0.8
+Loading module "trax" v2.0.1.23
+Starting thread 'GDBStub0'
+Starting thread 'TraxApp'
+Opened GDB socket at port 20000
+traxapp: listening on port 11444
+Initialize XDM driver
+ Total IR bits : 5
+  TAP[0] irwidth = 5
+ Total DR bypass bits : 1
+Warning: Target not under control. No status update performed
+[Software breakpoints not supported in XOCD. GDB will handle breakpoints]
+XOCD 14.02 2019-08-27 15:02:11
+(c) 1999-2020 Cadence Design Systems Inc. All rights reserved.
+[Debug Log 2020-05-22 12:57:56]
+Loading module "gdbstub" v2.0.0.12
+Loading module "jlink" v2.0.2.0
+Using JLINK lib v.65002
+Jlink USB Serial Number: 50127472
+Connected to Jlink Device:
+  Name:'SEGGER J-Link ARM'
+  S/N:50127472
+  Firmware: J-Link V10 compiled Oct 22 2019 16:28:15
+  Requested/Set TCK: 2000kHz/65534kHz
+Loading module "jtag" v2.0.0.20
+Loading module "xtensa" v2.0.0.48
+Loading module "traxapp" v2.0.0.8
+Loading module "trax" v2.0.1.23
+Starting thread 'GDBStub0'
+Starting thread 'TraxApp'
+Opened GDB socket at port 20000
+traxapp: listening on port 11444
+Initialize XDM driver
+ Total IR bits : 5
+  TAP[0] irwidth = 5
+ Total DR bypass bits : 1
+Warning: Target not under control. No status update performed
+[Software breakpoints not supported in XOCD. GDB will handle breakpoints]
+XOCD 14.02 2019-08-27 15:02:11
+(c) 1999-2020 Cadence Design Systems Inc. All rights reserved.
+[Debug Log 2020-05-22 12:58:40]
+Loading module "gdbstub" v2.0.0.12
+Loading module "jlink" v2.0.2.0
+Using JLINK lib v.65002
+Jlink USB Serial Number: 50127472
+Connected to Jlink Device:
+  Name:'SEGGER J-Link ARM'
+  S/N:50127472
+  Firmware: J-Link V10 compiled Oct 22 2019 16:28:15
+  Requested/Set TCK: 2000kHz/65534kHz
+Loading module "jtag" v2.0.0.20
+Loading module "xtensa" v2.0.0.48
+Loading module "traxapp" v2.0.0.8
+Loading module "trax" v2.0.1.23
+Starting thread 'GDBStub0'
+Starting thread 'TraxApp'
+Opened GDB socket at port 20000
+traxapp: listening on port 11444
+Initialize XDM driver
+ Total IR bits : 5
+  TAP[0] irwidth = 5
+ Total DR bypass bits : 1
+Warning: Target not under control. No status update performed
+[Software breakpoints not supported in XOCD. GDB will handle breakpoints]
+XOCD 14.02 2019-08-27 15:02:11
+(c) 1999-2020 Cadence Design Systems Inc. All rights reserved.
+[Debug Log 2020-05-22 12:59:47]
+Loading module "gdbstub" v2.0.0.12
+Loading module "jlink" v2.0.2.0
+Using JLINK lib v.65002
+Jlink USB Serial Number: 50127472
+Connected to Jlink Device:
+  Name:'SEGGER J-Link ARM'
+  S/N:50127472
+  Firmware: J-Link V10 compiled Oct 22 2019 16:28:15
+  Requested/Set TCK: 2000kHz/65534kHz
+Loading module "jtag" v2.0.0.20
+Loading module "xtensa" v2.0.0.48
+Loading module "traxapp" v2.0.0.8
+Loading module "trax" v2.0.1.23
+Starting thread 'GDBStub0'
+Starting thread 'TraxApp'
+traxapp: listening on port 11444
+Opened GDB socket at port 20000
+Initialize XDM driver
+ Total IR bits : 5
+  TAP[0] irwidth = 5
+ Total DR bypass bits : 1
+Warning: Target not under control. No status update performed
+[Software breakpoints not supported in XOCD. GDB will handle breakpoints]
+XOCD 14.02 2019-08-27 15:02:11
+(c) 1999-2020 Cadence Design Systems Inc. All rights reserved.
+[Debug Log 2020-07-16 20:42:07]
+Loading module "gdbstub" v2.0.0.12
+Loading module "jlink" v2.0.2.0
+Using JLINK lib v.65002
+Jlink USB Serial Number: 50127472
+Connected to Jlink Device:
+  Name:'SEGGER J-Link ARM'
+  S/N:50127472
+  Firmware: J-Link V10 compiled Oct 22 2019 16:28:15
+  Requested/Set TCK: 2000kHz/65534kHz
+Loading module "jtag" v2.0.0.20
+Loading module "xtensa" v2.0.0.48
+Loading module "traxapp" v2.0.0.8
+Loading module "trax" v2.0.1.23
+Starting thread 'GDBStub0'
+Starting thread 'TraxApp'
+Opened GDB socket at port 20000
+traxapp: listening on port 11444
+Initialize XDM driver
+ Total IR bits : 5
+  TAP[0] irwidth = 5
+ Total DR bypass bits : 1
+Warning: Target not under control. No status update performed
+[Software breakpoints not supported in XOCD. GDB will handle breakpoints]
+XOCD 14.02 2019-08-27 15:02:11
+(c) 1999-2020 Cadence Design Systems Inc. All rights reserved.
+[Debug Log 2020-07-16 20:53:28]
+Loading module "gdbstub" v2.0.0.12
+Loading module "jlink" v2.0.2.0
+Using JLINK lib v.65002
+Jlink USB Serial Number: 50127472
+Connected to Jlink Device:
+  Name:'SEGGER J-Link ARM'
+  S/N:50127472
+  Firmware: J-Link V10 compiled Oct 22 2019 16:28:15
+  Requested/Set TCK: 2000kHz/65534kHz
+Loading module "jtag" v2.0.0.20
+Loading module "xtensa" v2.0.0.48
+Loading module "traxapp" v2.0.0.8
+Loading module "trax" v2.0.1.23
+Starting thread 'GDBStub0'
+Starting thread 'TraxApp'
+Opened GDB socket at port 20000
+Initialize XDM driver
+traxapp: listening on port 11444
+ Total IR bits : 5
+  TAP[0] irwidth = 5
+ Total DR bypass bits : 1
+Warning: Target not under control. No status update performed
+[Software breakpoints not supported in XOCD. GDB will handle breakpoints]
+XOCD 14.02 2019-08-27 15:02:11
+(c) 1999-2020 Cadence Design Systems Inc. All rights reserved.
+[Debug Log 2020-07-28 18:26:39]
+Loading module "gdbstub" v2.0.0.12
+Loading module "jlink" v2.0.2.0
+Using JLINK lib v.65002
+Jlink USB Serial Number: 50127472
+Connected to Jlink Device:
+  Name:'SEGGER J-Link ARM'
+  S/N:50127472
+  Firmware: J-Link V10 compiled Oct 22 2019 16:28:15
+  Requested/Set TCK: 2000kHz/65534kHz
+Loading module "jtag" v2.0.0.20
+Loading module "xtensa" v2.0.0.48
+Loading module "traxapp" v2.0.0.8
+Loading module "trax" v2.0.1.23
+Starting thread 'GDBStub0'
+Starting thread 'TraxApp'
+Opened GDB socket at port 20000
+traxapp: listening on port 11444
+Initialize XDM driver
+ Total IR bits : 5
+  TAP[0] irwidth = 5
+ Total DR bypass bits : 1
+Warning: Target not under control. No status update performed
+[Software breakpoints not supported in XOCD. GDB will handle breakpoints]
+XOCD 14.02 2019-08-27 15:02:11
+(c) 1999-2020 Cadence Design Systems Inc. All rights reserved.
+[Debug Log 2020-07-28 18:29:19]
+Loading module "gdbstub" v2.0.0.12
+Loading module "jlink" v2.0.2.0
+Using JLINK lib v.65002
+Jlink USB Serial Number: 50127472
+Connected to Jlink Device:
+  Name:'SEGGER J-Link ARM'
+  S/N:50127472
+  Firmware: J-Link V10 compiled Oct 22 2019 16:28:15
+  Requested/Set TCK: 2000kHz/65534kHz
+Loading module "jtag" v2.0.0.20
+Loading module "xtensa" v2.0.0.48
+Loading module "traxapp" v2.0.0.8
+Loading module "trax" v2.0.1.23
+Starting thread 'GDBStub0'
+Starting thread 'TraxApp'
+Opened GDB socket at port 20000
+traxapp: listening on port 11444
+Initialize XDM driver
+ Total IR bits : 5
+  TAP[0] irwidth = 5
+ Total DR bypass bits : 1
+Warning: Target not under control. No status update performed
+[Software breakpoints not supported in XOCD. GDB will handle breakpoints]
+XOCD 14.02 2019-08-27 15:02:11
+(c) 1999-2020 Cadence Design Systems Inc. All rights reserved.
+[Debug Log 2020-07-28 18:32:13]
+Loading module "gdbstub" v2.0.0.12
+Loading module "jlink" v2.0.2.0
+Using JLINK lib v.65002
+Jlink USB Serial Number: 50127472
+Connected to Jlink Device:
+  Name:'SEGGER J-Link ARM'
+  S/N:50127472
+  Firmware: J-Link V10 compiled Oct 22 2019 16:28:15
+  Requested/Set TCK: 2000kHz/65534kHz
+Loading module "jtag" v2.0.0.20
+Loading module "xtensa" v2.0.0.48
+Loading module "traxapp" v2.0.0.8
+Loading module "trax" v2.0.1.23
+Starting thread 'GDBStub0'
+Starting thread 'TraxApp'
+traxapp: listening on port 11444
+Opened GDB socket at port 20000
+Initialize XDM driver
+ Total IR bits : 5
+  TAP[0] irwidth = 5
+ Total DR bypass bits : 1
+Warning: Target not under control. No status update performed
+[Software breakpoints not supported in XOCD. GDB will handle breakpoints]
+XOCD 14.02 2019-08-27 15:02:11
+(c) 1999-2020 Cadence Design Systems Inc. All rights reserved.
+[Debug Log 2020-07-28 20:57:35]
+Loading module "gdbstub" v2.0.0.12
+Loading module "jlink" v2.0.2.0
+Using JLINK lib v.65002
+Jlink USB Serial Number: 50127472
+Connected to Jlink Device:
+  Name:'SEGGER J-Link ARM'
+  S/N:50127472
+  Firmware: J-Link V10 compiled Oct 22 2019 16:28:15
+  Requested/Set TCK: 2000kHz/65534kHz
+Loading module "jtag" v2.0.0.20
+Loading module "xtensa" v2.0.0.48
+Loading module "traxapp" v2.0.0.8
+Loading module "trax" v2.0.1.23
+Starting thread 'GDBStub0'
+Starting thread 'TraxApp'
+traxapp: listening on port 11444
+Opened GDB socket at port 20000
+Initialize XDM driver
+ Total IR bits : 5
+  TAP[0] irwidth = 5
+ Total DR bypass bits : 1
+Warning: Target not under control. No status update performed
+[Software breakpoints not supported in XOCD. GDB will handle breakpoints]
+XOCD 14.02 2019-08-27 15:02:11
+(c) 1999-2020 Cadence Design Systems Inc. All rights reserved.
+[Debug Log 2020-07-28 21:06:55]
+Loading module "gdbstub" v2.0.0.12
+Loading module "jlink" v2.0.2.0
+Using JLINK lib v.65002
+Jlink USB Serial Number: 50127472
+Connected to Jlink Device:
+  Name:'SEGGER J-Link ARM'
+  S/N:50127472
+  Firmware: J-Link V10 compiled Oct 22 2019 16:28:15
+  Requested/Set TCK: 2000kHz/65534kHz
+Loading module "jtag" v2.0.0.20
+Loading module "xtensa" v2.0.0.48
+Loading module "traxapp" v2.0.0.8
+Loading module "trax" v2.0.1.23
+Starting thread 'GDBStub0'
+Starting thread 'TraxApp'
+Opened GDB socket at port 20000
+traxapp: listening on port 11444
+Initialize XDM driver
+ Total IR bits : 5
+  TAP[0] irwidth = 5
+ Total DR bypass bits : 1
+Warning: Target not under control. No status update performed
+[Software breakpoints not supported in XOCD. GDB will handle breakpoints]
+XOCD 14.02 2019-08-27 15:02:11
+(c) 1999-2020 Cadence Design Systems Inc. All rights reserved.
+[Debug Log 2020-07-28 21:20:58]
+Loading module "gdbstub" v2.0.0.12
+Loading module "jlink" v2.0.2.0
+Using JLINK lib v.65002
+Jlink USB Serial Number: 50127472
+Connected to Jlink Device:
+  Name:'SEGGER J-Link ARM'
+  S/N:50127472
+  Firmware: J-Link V10 compiled Oct 22 2019 16:28:15
+  Requested/Set TCK: 2000kHz/65534kHz
+Loading module "jtag" v2.0.0.20
+Loading module "xtensa" v2.0.0.48
+Loading module "traxapp" v2.0.0.8
+Loading module "trax" v2.0.1.23
+Starting thread 'GDBStub0'
+Starting thread 'TraxApp'
+traxapp: listening on port 11444
+Opened GDB socket at port 20000
+Initialize XDM driver
+ Total IR bits : 5
+  TAP[0] irwidth = 5
+ Total DR bypass bits : 1
+Warning: Target not under control. No status update performed
+[Software breakpoints not supported in XOCD. GDB will handle breakpoints]
+XOCD 14.02 2019-08-27 15:02:11
+(c) 1999-2020 Cadence Design Systems Inc. All rights reserved.
+[Debug Log 2020-07-28 21:30:53]
+Loading module "gdbstub" v2.0.0.12
+Loading module "jlink" v2.0.2.0
+Using JLINK lib v.65002
+Jlink USB Serial Number: 50127472
+Connected to Jlink Device:
+  Name:'SEGGER J-Link ARM'
+  S/N:50127472
+  Firmware: J-Link V10 compiled Oct 22 2019 16:28:15
+  Requested/Set TCK: 2000kHz/65534kHz
+Loading module "jtag" v2.0.0.20
+Loading module "xtensa" v2.0.0.48
+Loading module "traxapp" v2.0.0.8
+Loading module "trax" v2.0.1.23
+Starting thread 'GDBStub0'
+Starting thread 'TraxApp'
+Opened GDB socket at port 20000
+traxapp: listening on port 11444
+Initialize XDM driver
+ Total IR bits : 5
+  TAP[0] irwidth = 5
+ Total DR bypass bits : 1
+Warning: Target not under control. No status update performed
+[Software breakpoints not supported in XOCD. GDB will handle breakpoints]

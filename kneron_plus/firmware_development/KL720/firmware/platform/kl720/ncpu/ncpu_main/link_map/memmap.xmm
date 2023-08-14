@@ -1,0 +1,85 @@
+//  Memory map file to generate linker scripts for programs without board I/O.
+
+// Customer ID=14510; Build=0x84826; Copyright (c) 2004-2015 Cadence Design Systems, Inc.
+//
+// Permission is hereby granted, free of charge, to any person obtaining
+// a copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to
+// permit persons to whom the Software is furnished to do so, subject to
+// the following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+// IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+// CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+// TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+// SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+PLACE SECTIONS(.idma_text) WITH_SECTION(.iram0.text)
+
+// A memory map is a sequence of memory descriptions and
+// optional parameter assignments.
+//
+// Each memory description has the following format:
+//   BEGIN <name>
+//     <addr> [,<paddr>] : <mem-type> : <mem-name> : <size> [,<psize>]
+//                       : [writable] [,executable] [,device] ;
+//     <segment>*
+//   END <name>
+//
+// where each <segment> description has the following format:
+//     <seg-name> : F|C : <start-addr> - <end-addr> [ : STACK ] [ : HEAP ]
+//                : <section-name>* ;
+//
+// Each parameter assignment is a keyword/value pair in the following format:
+//   <keyword> = <value>                (no spaces in <value>)
+// or
+//   <keyword> = "<value>"              (spaces allowed in <value>)
+//
+// The following primitives are also defined:
+//   PLACE SECTIONS( <section-name>* ) { WITH_SECTION(<section-name>)
+//                                       | IN_SEGMENT(<seg-name>) }
+//
+//   NOLOAD <section-name1> [ <section-name2> ... ]
+//
+// Please refer to the Xtensa LSP Reference Manual for more details.
+//
+BEGIN dram0
+0x80000: dataRam : dram0 : 0x40000 : writable ;
+ dram0_0 : C : 0x80000 - 0xbffff : .dram0.rodata .dram0.data .dram0.bss;
+END dram0
+
+BEGIN dram1
+0xc0000: dataRam : dram1 : 0x40000 : writable ;
+ dram1_0 : C : 0xc0000 - 0xfffff : STACK:  .dram1.rodata .dram1.data .dram1.bss;
+END dram1
+
+BEGIN srom
+0x40080000: sysrom : srom : 0x1000000 : executable ;
+ srom0 : C : 0x40080000 - 0x4107ffff : .srom.rodata .srom.literal .srom.text .rom.store;
+END srom
+
+BEGIN iram0
+0x80000000: instRam : iram0 : 0x20000 : executable, writable ;
+ iram0_0 : F : 0x80000000 - 0x8001ffff : .ResetVector.text .ResetHandler.literal .ResetHandler.text .iram0.literal .iram0.text .libDriver.literal .libDriver.text .rtos.literal .clib.literal .clib.text .rtos.text;
+END iram0
+
+BEGIN sram
+0x80020000: sysram : sram : 0x200000 : executable, writable ;
+ sram0 : C : 0x80020000 - 0x8011ffff : .sram.rodata .sram.literal .sram.text .clib.rodata .libDriver.rodata .rtos.rodata .libDriver.data .rodata .clib.data .clib.percpu.data .rtos.percpu.data .rtos.data .sram.data .data .libDriver.bss;
+ sram1 : F : 0x80120000 - 0x8012017f : .WindowVectors.text .Level2InterruptVector.literal;
+ sram2 : F : 0x80120180 - 0x801201bf : .Level2InterruptVector.text .Level3InterruptVector.literal;
+ sram3 : F : 0x801201c0 - 0x801201ff : .Level3InterruptVector.text .DebugExceptionVector.literal;
+ sram4 : F : 0x80120200 - 0x8012023f : .DebugExceptionVector.text .NMIExceptionVector.literal;
+ sram5 : F : 0x80120240 - 0x8012027f : .NMIExceptionVector.text .KernelExceptionVector.literal;
+ sram6 : F : 0x80120280 - 0x801202bf : .KernelExceptionVector.text .UserExceptionVector.literal;
+ sram7 : F : 0x801202c0 - 0x8012033f : .UserExceptionVector.text .DoubleExceptionVector.literal;
+ sram8 : F : 0x80120340 - 0x8021dfff :  HEAP : .DoubleExceptionVector.text .literal .text __llvm_prf_names .clib.bss .clib.percpu.bss .rtos.percpu.bss .rtos.bss .sram.bss .bss;
+END sram
+
