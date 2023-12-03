@@ -20,7 +20,7 @@ import cv2
 SCPU_FW_PATH = os.path.join(PWD, '../../res/firmware/KL520/fw_scpu.bin')
 NCPU_FW_PATH = os.path.join(PWD, '../../res/firmware/KL520/fw_ncpu.bin')
 MODEL_FILE_PATH = os.path.join(PWD, '../../res/models/KL520/tiny_yolo_v3/models_520.nef')
-class_path='../../res/models/KL720/YoloV5s_640_640_3/088_models_720.txt'
+class_path='../../res/models/KL520/tiny_yolo_v3/models_520.txt'
 _LOCK = threading.Lock()
 _SEND_RUNNING = True
 _RECEIVE_RUNNING = True
