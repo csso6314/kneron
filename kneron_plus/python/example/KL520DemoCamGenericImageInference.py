@@ -130,28 +130,28 @@ def _result_receive_function(_device_group: kp.DeviceGroup) -> None:
             g = 100 + (80 + 40 * yolo_result.class_num) % 156
             r = 100 + (120 + 60 * yolo_result.class_num) % 156
             color = (b, g, r)
-
-            cv2.rectangle(img=temp_image,
-                          pt1=(int(yolo_result.x1), int(yolo_result.y1)),
-                          pt2=(int(yolo_result.x2), int(yolo_result.y2)),
-                          color=color,
-                          thickness=3)
-            cv2.putText(img=temp_image,
-                        text='{}'.format(classes[yolo_result.class_num]),
-                        org=(int(yolo_result.x1), int(yolo_result.y1)-30),
-                        fontFace=cv2.FONT_HERSHEY_DUPLEX,
-                        fontScale=1,
-                        color=color,
-                        thickness=1,
-                        lineType=cv2.LINE_AA)
-            cv2.putText(img=temp_image,
-                        text='{:.2f}%'.format(float(yolo_result.score)*100),
-                        org=(int(yolo_result.x1), int(yolo_result.y1)-5),
-                        fontFace=cv2.FONT_HERSHEY_DUPLEX,
-                        fontScale=1,
-                        color=color,
-                        thickness=1,
-                        lineType=cv2.LINE_AA)
+            if (yolo_result.class_num==15) or (yolo_result.class_num==16):
+                cv2.rectangle(img=temp_image,
+                              pt1=(int(yolo_result.x1), int(yolo_result.y1)),
+                              pt2=(int(yolo_result.x2), int(yolo_result.y2)),
+                              color=color,
+                              thickness=3)
+                cv2.putText(img=temp_image,
+                            text='{}'.format(classes[yolo_result.class_num]),
+                            org=(int(yolo_result.x1), int(yolo_result.y1)-30),
+                            fontFace=cv2.FONT_HERSHEY_DUPLEX,
+                            fontScale=1,
+                            color=color,
+                            thickness=1,
+                            lineType=cv2.LINE_AA)
+                cv2.putText(img=temp_image,
+                            text='{:.2f}%'.format(float(yolo_result.score)*100),
+                            org=(int(yolo_result.x1), int(yolo_result.y1)-5),
+                            fontFace=cv2.FONT_HERSHEY_DUPLEX,
+                            fontScale=1,
+                            color=color,
+                            thickness=1,
+                            lineType=cv2.LINE_AA)
 
         time_end = time.time()
 
