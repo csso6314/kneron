@@ -248,7 +248,11 @@ if __name__ == '__main__':
         model_nef_descriptor = kp.core.load_model_from_file(device_group=device_group,
                                                             file_path=MODEL_FILE_PATH)
         print(' - Success')
-
+        with open(class_path) as class_file:
+            classes = class_file.readlines()
+        classes = [c.strip() for c in classes]
+        print('[read class path]')
+        print(classes)
         print('[Model NEF Information]')
         print(model_nef_descriptor)
     except kp.ApiKPException as exception:
