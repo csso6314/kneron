@@ -1,5 +1,5 @@
 # ******************************************************************************
-#  Copyright (c) 2021-2022. Kneron Inc. All rights reserved.                   *
+#  Copyright (c) 2021-2022. Kneron Inc. All rights reserved.     1694757902_              *
 # ******************************************************************************
 
 import os
@@ -17,8 +17,8 @@ from utils.ExamplePostProcess import post_process_yolo_v5
 import kp
 import cv2
 
-MODEL_FILE_PATH = os.path.join(PWD, '../../res/models/KL720/YoloV5s_640_640_3/models_720.nef')
-
+MODEL_FILE_PATH = os.path.join(PWD, '../../res/models/KL720/YoloV5s_640_640_3/088_models_720.nef')
+class_path='../../res/models/KL720/YoloV5s_640_640_3/088_models_720.txt'
 _LOCK = threading.Lock()
 _SEND_RUNNING = True
 _RECEIVE_RUNNING = True
@@ -135,6 +135,22 @@ def _result_receive_function(_device_group: kp.DeviceGroup) -> None:
                           pt2=(int(yolo_result.x2), int(yolo_result.y2)),
                           color=color,
                           thickness=3)
+            cv2.putText(img=temp_image,
+                        text='{}'.format(classes[yolo_result.class_num]),
+                        org=(int(yolo_result.x1), int(yolo_result.y1)-30),
+                        fontFace=cv2.FONT_HERSHEY_DUPLEX,
+                        fontScale=1,
+                        color=color,
+                        thickness=1,
+                        lineType=cv2.LINE_AA)
+            cv2.putText(img=temp_image,
+                        text='{:.2f}%'.format(float(yolo_result.score)*100),
+                        org=(int(yolo_result.x1), int(yolo_result.y1)-5),
+                        fontFace=cv2.FONT_HERSHEY_DUPLEX,
+                        fontScale=1,
+                        color=color,
+                        thickness=1,
+                        lineType=cv2.LINE_AA)
 
         time_end = time.time()
 
@@ -152,13 +168,14 @@ def _result_receive_function(_device_group: kp.DeviceGroup) -> None:
                     thickness=1,
                     lineType=cv2.LINE_AA)
         cv2.putText(img=temp_image,
-                    text='Press \'ESC\' to exit',
+		    text='Press \'ESC\' to exit',
                     org=(10, temp_image.shape[0] - 10),
                     fontFace=cv2.FONT_HERSHEY_DUPLEX,
                     fontScale=1,
                     color=(200, 200, 200),
                     thickness=1,
                     lineType=cv2.LINE_AA)
+        
 
         with _LOCK:
             _image_to_show = temp_image.copy()
@@ -217,7 +234,11 @@ if __name__ == '__main__':
         model_nef_descriptor = kp.core.load_model_from_file(device_group=device_group,
                                                             file_path=MODEL_FILE_PATH)
         print(' - Success')
-
+        with open(class_path) as class_file:
+            classes = class_file.readlines()
+        classes = [c.strip() for c in classes]
+        print('[read class path]')
+        print(classes)
         print('[Model NEF Information]')
         print(model_nef_descriptor)
     except kp.ApiKPException as exception:
