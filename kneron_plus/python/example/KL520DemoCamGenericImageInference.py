@@ -160,7 +160,22 @@ def _result_receive_function(_device_group: kp.DeviceGroup) -> None:
                     color=(200, 200, 200),
                     thickness=1,
                     lineType=cv2.LINE_AA)
-
+        cv2.putText(img=temp_image,
+                    text='{}'.format(classes[yolo_result.class_num]),
+                    org=(int(yolo_result.x1), int(yolo_result.y1)-30),
+                    fontFace=cv2.FONT_HERSHEY_DUPLEX,
+                    fontScale=1,
+                    color=color,
+                    thickness=1,
+                    lineType=cv2.LINE_AA)
+        cv2.putText(img=temp_image,
+                    text='{:.2f}%'.format(float(yolo_result.score)*100),
+                    org=(int(yolo_result.x1), int(yolo_result.y1)-5),
+                    fontFace=cv2.FONT_HERSHEY_DUPLEX,fontScale=1,
+                    color=color,
+                    thickness=1,
+                    lineType=cv2.LINE_AA)
+            
         with _LOCK:
             _image_to_show = temp_image.copy()
 
