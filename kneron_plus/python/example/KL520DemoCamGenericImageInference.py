@@ -20,7 +20,7 @@ import cv2
 SCPU_FW_PATH = os.path.join(PWD, '../../res/firmware/KL520/fw_scpu.bin')
 NCPU_FW_PATH = os.path.join(PWD, '../../res/firmware/KL520/fw_ncpu.bin')
 MODEL_FILE_PATH = os.path.join(PWD, '../../res/models/KL520/tiny_yolo_v3/models_520.nef')
-
+class_path='../../res/models/KL720/YoloV5s_640_640_3/088_models_720.txt'
 _LOCK = threading.Lock()
 _SEND_RUNNING = True
 _RECEIVE_RUNNING = True
@@ -136,6 +136,22 @@ def _result_receive_function(_device_group: kp.DeviceGroup) -> None:
                           pt2=(int(yolo_result.x2), int(yolo_result.y2)),
                           color=color,
                           thickness=3)
+            cv2.putText(img=temp_image,
+                        text='{}'.format(classes[yolo_result.class_num]),
+                        org=(int(yolo_result.x1), int(yolo_result.y1)-30),
+                        fontFace=cv2.FONT_HERSHEY_DUPLEX,
+                        fontScale=1,
+                        color=color,
+                        thickness=1,
+                        lineType=cv2.LINE_AA)
+            cv2.putText(img=temp_image,
+                        text='{:.2f}%'.format(float(yolo_result.score)*100),
+                        org=(int(yolo_result.x1), int(yolo_result.y1)-5),
+                        fontFace=cv2.FONT_HERSHEY_DUPLEX,
+                        fontScale=1,
+                        color=color,
+                        thickness=1,
+                        lineType=cv2.LINE_AA)
 
         time_end = time.time()
 
@@ -160,21 +176,7 @@ def _result_receive_function(_device_group: kp.DeviceGroup) -> None:
                     color=(200, 200, 200),
                     thickness=1,
                     lineType=cv2.LINE_AA)
-        cv2.putText(img=temp_image,
-                    text='{}'.format(classes[yolo_result.class_num]),
-                    org=(int(yolo_result.x1), int(yolo_result.y1)-30),
-                    fontFace=cv2.FONT_HERSHEY_DUPLEX,
-                    fontScale=1,
-                    color=color,
-                    thickness=1,
-                    lineType=cv2.LINE_AA)
-        cv2.putText(img=temp_image,
-                    text='{:.2f}%'.format(float(yolo_result.score)*100),
-                    org=(int(yolo_result.x1), int(yolo_result.y1)-5),
-                    fontFace=cv2.FONT_HERSHEY_DUPLEX,fontScale=1,
-                    color=color,
-                    thickness=1,
-                    lineType=cv2.LINE_AA)
+        
             
         with _LOCK:
             _image_to_show = temp_image.copy()
